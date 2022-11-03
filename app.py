@@ -1,5 +1,14 @@
-master_pwd = input("What is the master password?: ")
+from cryptography.fernet import Fernet
 
+master_pwd = input("What is the master password?: ") # master_pwd = pythonisbest
+
+# one time running function to generate a key for master_pwd
+# def make_key():
+#     key = Fernet.generate_key()
+#     with open("key.key", "wb") as key_file:
+#         key_file.write(key)
+
+# make_key();
 
 def view():
     with open('passwords.txt', 'r') as f:

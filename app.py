@@ -1,9 +1,4 @@
-import base64
-import os
 from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-# from cryptography.fernet import Fernet
 
 
 def fetch_key():
@@ -13,7 +8,7 @@ def fetch_key():
     return key
 
 
-master_pwd = input("What is the master password?: ") # master_pwd = sagar
+master_pwd = input("What is the master password?: ") # master_pwd = pythonisbest
 key = fetch_key()# encode - takes your string and turns it into bytes
 fer = Fernet(key)
 
@@ -43,6 +38,9 @@ def add():
         f.write(name + "|" + str(fer.encrypt(pwd.encode()).decode()) + "\n")
 
 # menu
+
+
+
 while True:
     mode = input("Would you like to add a new password or view existing ones (view, add), press q to quit: ")
     if mode.lower() == "view":

@@ -1,28 +1,41 @@
 from cryptography.fernet import Fernet
 
-master_pwd = input("What is the master password?: ") # master_pwd = pythonisbest
+
+def fetch_key():
+    file = open("key.key", "rb")
+    key = file.read()
+    file.close()
+    return key
+
+
+master_pwd = input("What is the master password?: ") # master_pwd = sagar
+key = fetch_key() + master_pwd.encode() # encode - takes your string and turns it into bytes
+fer = Fernet(key)
 
 # one time running function to generate a key for master_pwd
-# def make_key():
-#     key = Fernet.generate_key()
-#     with open("key.key", "wb") as key_file:
-#         key_file.write(key)
+'''
+def make_key():
+    key = Fernet.generate_key()
+    with open("key.key", "wb") as key_file:
+        key_file.write(key)
 
-# make_key();
+make_key();
+'''
+
 
 def view():
     with open('passwords.txt', 'r') as f:
         for line in f.readlines():
             data = line.rstrip()
             user, passw = data.split("|")
-            print("Username: ", user, "| Password: ", passw)
+            print("Username: ", user, "| Password: ", fer.decrypt(passw.encode()).decode())
 
 def add():
     name = input("Account name: ")
     pwd = input("Password: ")
 
     with open('passwords.txt', 'a') as f:
-        f.write(name + "|" + pwd + "\n")
+        f.write(name + "|" + str(fer.encrypt(pwd.encode()).decode()) + "\n")
 
 # menu
 while True:

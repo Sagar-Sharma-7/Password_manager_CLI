@@ -45,10 +45,11 @@ with open("m_pwd.key", "rb") as f:
     m_pwd = f.read()
     password = m_pwd
 
-
 if sha256_crypt.verify(master_pwd, password):
     while True:
-        mode = input("Would you like to add a new password or view existing ones (view, add), press q to quit: ")
+        mode = input("""\t Would you like to add a new password or 
+\t view existing ones (view, add), 
+\t press q to quit: """)
         if mode.lower() == "view":
             view()
         elif mode.lower() == "add":
